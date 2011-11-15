@@ -12,7 +12,7 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-//  "org.scala-lang" % "scala-swing" % "2.9.1",
+  "org.scala-lang" % "scala-swing" % "2.9.1",
   "org.specs2" %% "specs2" % "1.6.1" % "test",
   "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test",
   "org.scala-tools.testing" %% "scalacheck" % "1.9" % "test"
