@@ -23,26 +23,24 @@ trait Backend {
 }
 
 object Backend {
-  type Operation = (Operator, Int,  Int)
-  type Request = (Method, String, OutputChannel[String])
+  type Operation = (Operator, Int,  Int, OutputChannel[Reply])
+  type Request = (Method, String, OutputChannel[Reply])
+  type Reply = String
 
-  def apply(): Backend = new Backend with ChannelDaemon[Request, Operation] {
-    def requests = channel
-    def operations = channel2
-    def actions = {
+  def apply(): Backend = new Backend with Daemon {
+    val requests = Channel[Request] {
       case (Echo, string, chan) => chan ! string
       case (Reverse, string, chan) => chan ! string.reverse
       case (Upper, string, chan) => chan ! string.toUpperCase
       case (Lower, string, chan) => chan ! string.toLowerCase
     }
 
-    def actions2 = {
-      case (Add, x, y) => println(x + y)
-      case (Sub, x, y) => println(x - y)
-      case (Mul, x, y) => println(x * y)
-      case (Div, x, y) => println(x / y)
+    val operations = Channel[Operation] {
+      case (Add, x, y, chan) => chan ! (x + y).toString
+      case (Sub, x, y, chan) => chan ! (x - y).toString
+      case (Mul, x, y, chan) => chan ! (x * y).toString
+      case (Div, x, y, chan) => chan ! (x / y).toString
     }
-
-    def stop() { receiver ! Die }
+    println("Backend created")
   }
 }
