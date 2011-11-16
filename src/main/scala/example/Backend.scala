@@ -19,7 +19,6 @@ case object Div extends Operator
 trait Backend {
   def requests: Channel[Backend.Request]
   def operations: Channel[Backend.Operation]
-  def stop()
 }
 
 object Backend {
@@ -41,6 +40,6 @@ object Backend {
       case (Mul, x, y, chan) => chan ! (x * y).toString
       case (Div, x, y, chan) => chan ! (x / y).toString
     }
-    println("Backend created")
+    println("Backend created, size " + size)
   }
 }

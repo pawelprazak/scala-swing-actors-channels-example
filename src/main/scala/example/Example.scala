@@ -52,6 +52,4 @@ object Example extends SimpleSwingApplication {
     title = "Swing Actor Backend Example"
     contents = ui
   }
-
-  override def shutdown() { backend.stop() }
 }

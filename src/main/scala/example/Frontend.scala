@@ -28,6 +28,6 @@ object Frontend {
       backend.operations ! (operator, x, y, replies)
     }
 
-    println("Frontend created")
+    println("Frontend created, size " + size)
   }
 }
